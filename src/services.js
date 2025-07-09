@@ -33,12 +33,12 @@ DELETE	Eliminar	Borrar una película
 const API_URL = 'http://localhost:3000/films'
 
 //____________________________CREATE- MÉTODO POST________________________________________________________
-//Si quiero crear una nueva película (añadirla?)
+//Si quiero crear una nueva película (añadirla)
 async function createFilm(filmData, listType) { 
     //Esto es el manejo de errores, Celia recomienda hacerlo, abre un bloque try/catch que se usa para intentar ejecutar un código y atrapar errores si algo falla.
     try {
         // Determinar el endpoint según el tipo de lista
-        const endpoint = listType === 'my' ? '/mymovies' : '/friendmovies';
+        const endpoint = listType === 'my' ? '/myFilms' : '/friendFilms';
 
         const response = await fetch(`${API_URL}${endpoint}`, {
             method: 'POST',
@@ -46,20 +46,23 @@ async function createFilm(filmData, listType) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                ...filmData,
-                createdAt: new Date().toISOString()
+                title: filmData.title,
+                director: filmData.director,
+                filmdescription: filmData.filmdescription,
             })
         });
-        
+
         if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
+            throw new Error(`Error HTTP: ${response.status}`);
         }
         const newFilm = await response.json();
-        console.log('Film created: ', newFilm);
+        console.log('CREATE listo: Film created in API: ', newFilm);
         return newFilm;
+
     } catch (error) {
         console.error('Error create film:', error);
-        throw error; //Re-lanzar para que la UI pueda manejarlo
+        showNotification('Error al crear la película', 'error');
+        throw error;
     }
 }
 /*explicación: _async_ es necesario porque JavaScript es asíncrono: esta función va a hacer cosas que tardan un tiempo

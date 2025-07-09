@@ -1,22 +1,44 @@
 {
-    "films": [
+    "myFilms": [
         {
             "title": "¿Qué he hecho yo para merecer esto",
             "id": "1",
             "director": "Pedro Almodóvar",
-            "film_description": "La película aborda el hastío vital de una ama de casa que ve cómo la indiferencia, rechazo e infidelidades de su marido arrinconan su día a día hasta empujarla a una realidad de anfetaminas donde sus hijos macarras, su suegra, un lagarto y una vecina prostituta atesoran una vía de escape tan surrealista como deslumbrante."
+            "description": "La película aborda el hastío vital de una ama de casa que ve cómo la indiferencia, rechazo e infidelidades de su marido arrinconan su día a día hasta empujarla a una realidad de anfetaminas donde sus hijos macarras, su suegra, un lagarto y una vecina prostituta atesoran una vía de escape tan surrealista como deslumbrante."
         },
         {
             "title": "La flor de mi secreto",
             "id": "2",
             "director":"Pedro Almodóvar",
-            "film_description": "Leo es una escritora de novela rosa en plena crisis creativa y vital. Está locamente enamorada de su marido, un militar destinado en Bosnia, pero su matrimonio está roto y eso la sume en la más absoluta desesperación. Además, sus editores pretenden demandarla por incumplir los plazos de entrega."
+            "description": "Leo es una escritora de novela rosa en plena crisis creativa y vital. Está locamente enamorada de su marido, un militar destinado en Bosnia, pero su matrimonio está roto y eso la sume en la más absoluta desesperación. Además, sus editores pretenden demandarla por incumplir los plazos de entrega."
         },
         {
             "title": "Dolor y gloria",
             "id": "3",
             "director": "Pedro Almodóvar",
-            "film_description": "Salvador Mallo (Antonio Banderas), un director de cine maduro y en horas bajas por la mala salud, reflexiona sobre las decisiones personales de su vida remontándose a su infancia en un pueblo de Valencia mientras siente que el presente se le derrumba."
+            "description": "Salvador Mallo (Antonio Banderas), un director de cine maduro y en horas bajas por la mala salud, reflexiona sobre las decisiones personales de su vida remontándose a su infancia en un pueblo de Valencia mientras siente que el presente se le derrumba."
+        }
+    ]
+}
+{
+    "friendFilms": [
+        {
+            "title": "Jurassic Park",
+            "id": "4",
+            "director": "Steven Spielberg",
+            "description": "Un parque temático poblado por dinosaurios creados genéticamente se convierte en una pesadilla cuando los depredadores escapan y cazan a los visitantes. Acción y terror prehistórico en una isla remota."
+        },
+        {
+            "title": "Alien",
+            "id": "5",
+            "director": "Ridley Scott",
+            "description": "La tripulación de una nave espacial se encuentra con una forma de vida extraterrestre letal que los caza uno por uno en el espacio. Terror claustrofóbico y supervivencia en el espacio profundo."
+        },
+        {
+            "title": "The Thing",
+            "id": "6",
+            "director": "John Carpenter",
+            "description": "En una base científica en la Antártida, una criatura alienígena que puede imitar cualquier forma de vida siembra el terror y la paranoia entre los investigadores aislados."
         }
     ]
 }
