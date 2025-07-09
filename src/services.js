@@ -29,23 +29,39 @@ POST	Crear	Añadir una nueva película
 PUT o PATCH	Actualizar	Modificar una película existente
 DELETE	Eliminar	Borrar una película
 */
+// CONFIGURACIÓN DE LA API
+const API_URL = 'http://localhost:3000/films'
 
 //____________________________CREATE- MÉTODO POST________________________________________________________
 //Si quiero crear una nueva película (añadirla?)
-async function createFilm(filmData) { 
+async function createFilm(filmData, listType) { 
     //Esto es el manejo de errores, Celia recomienda hacerlo, abre un bloque try/catch que se usa para intentar ejecutar un código y atrapar errores si algo falla.
     try {
-        const response = await fetch(API_URL, {
+        // Determinar el endpoint según el tipo de lista
+        const endpoint = listType === 'my' ? '/mymovies' : '/friendmovies';
+
+        const response = await fetch(`${API_URL}${endpoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(filmData)
+            body: JSON.stringify({
+                ...filmData,
+                createdAt: new Date().toISOString()
+            })
         });
+        
         if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
         }
+        const newFilm = await response.json();
+        console.log('Film created: ', newFilm);
+        return newFilm;
+    } catch (error) {
+        console.error('Error create film:', error);
+        throw error; //Re-lanzar para que la UI pueda manejarlo
     }
+}
 /*explicación: _async_ es necesario porque JavaScript es asíncrono: esta función va a hacer cosas que tardan un tiempo
                 _function_ es la palabra que usamos para crear una "caja de instrucciones" que podemos usar luego, para no tener que escribir el mismo código una y otra vez (la receta de cocina)
                 _createFilm_ es el nombre que le damos a nuestra función, le ponemos este nombre porque esta función va a crear una película nueva. 
@@ -67,7 +83,6 @@ async function createFilm(filmData) {
             mostrarEnPantalla();
         }
 }*/
-}
 /* READ MÉTODO GET
 async function getAllFilms() {
     const response = await fetch("http://localhost:3001/films")
