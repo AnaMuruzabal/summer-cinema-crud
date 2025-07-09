@@ -1,0 +1,18 @@
+/* Seguimos con el layout generado, cada una de nosotras hará uno para ver cuál conseguimos que se parezca más a la idea que tenemos */
+/* Añadimos el Reset básico de CSS: eliminamos los márgenes y paddings de html por defecto */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* box-sizing border box hace que el padding se incluya en el ancho total */
+}
+/* importamos fuentes dramáticas y expresivas desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+;
+/* Añadimos un fondo degradado */
+body {
+    background: linear-gradient(135deg, #1a1a2e, 0%, #16213e 50%, #0f3460 100%);
+    /*Creamos un degradado diagonal que simula el cielo nocturno*/
+}
+
+/* Contenedor principal */
