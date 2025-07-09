@@ -1,4 +1,16 @@
+/*Paso a paso para este proyecto:
+1.Instalar nodejs.org, descargar la versión estable, incluye npm también, reiniciar VScode o GitBash si estaban abiertos. Para ver si tenemos instalado node ponemos node -v
+2.npm: Node Package Manager: es un administrador de paquetes para JavaScript, específicamente para proyectos Node.js. Es una herramienta esencial que facilita la gestión  de dependencias, permitiendo a los desarrolladores instalar, actualizar, configurar y eliminar paquetes o librerías de JavaScript de manera sencilla.
+3. En la terminal ponemos npm init -y --> esto carga un archivo nuevo que se llama node_modules
+4. npm install json-server: que nos guarde nuestros registros
+5. Existe un archivo que evita que se suba toda esta nueva carpeta muy pesada a GitHub: .gitignore y dentro se escribe node_modules/ Este es el entorno de trabajo que tenemos que crear siempre. 
+6.Ahora vamos a crear a nuestro servidor con una carpeta server: dentro un archivo que va a ser nuestra base de datos de películas. Con esto simulamos nuestro servidor. Cada libro va a ser como una lista. Creamos objetos en formato json. 
+7. Estamos usando una API fake. No es Sql, sino que json simula que lo es, para practicar y ensayar.
+8.Ahora quiero levantar la URL, usar mi lista de simulación de base datos. Para eso usamos json-server. Desde la terminal, escribimos: npx json-server --watch server/db.json y nos crea una URL.
+
 //PROYECTO CRUD para aprender autónomamente desde book-API-vanilla. Sofia y yo vamos a hacer lo mismo from scratch
+//npm run api-fake --> para coger el recurso del script que hemos puesto en package.json--> Si pegamos la URL en Postman, con GET, me enseña los registros 3 registros
+que he guardado, o el que ponga (1, 2 ó 3 detrás del slash “/”)
 
 //URL de mi API, asegurarse siempre de que está levantada con npm run API http://localhost:3001/films
 const API_URL = 'http: //localhost:3000/films';
@@ -8,11 +20,15 @@ const API_URL = 'http: //localhost:3000/films';
 *¿Por qué localhost:3000?
 *localhost: es una dirección especial que apunta a tu propia máquina.
 *3000: es el puerto que probablemente esté usando un servidor como JSON Server, Express o similar.
-* /movies: es el recurso o "ruta" de la API donde se guardan o gestionan las películas.*/
-
-
-
-
+* /films: es el recurso o "ruta" de la API donde se guardan o gestionan las películas.*/
+//Un endpoint es una "dirección" o "ruta" dentro de una API (normalmente REST) que sirve para acceder o manipular un  tipo concreto de recurso. Es la parte final de la URL que indica a qué recurso estás accediendo. Se usa junto con un método HTTP como GET, POST, PUT, DELETE.
+// 📚 ¿Qué puedes hacer con el endpoint /films?
+/*Método HTTP	Acción	Explicación CRUD
+GET	Leer	Obtener todas las películas o una en concreto
+POST	Crear	Añadir una nueva película
+PUT o PATCH	Actualizar	Modificar una película existente
+DELETE	Eliminar	Borrar una película
+*/
 
 //____________________________CREATE- MÉTODO POST________________________________________________________
 //Si quiero crear una nueva película (añadirla?)
