@@ -34,12 +34,32 @@ const API_URL = 'http://localhost:3000/films'
 
 //____________________________CREATE- MÉTODO POST________________________________________________________
 //Si quiero crear una nueva película (añadirla)
-async function createFilm(filmData, listType) { 
+async function createFilm(filmData, listType) {  //"Oye función, cuando alguien te diga 'crea una película', tú vas a necesitar dos cosas: los datos de la película y si es para mi lista o la de mi amiga"
     //Esto es el manejo de errores, Celia recomienda hacerlo, abre un bloque try/catch que se usa para intentar ejecutar un código y atrapar errores si algo falla.
-    try {
-        // Determinar el endpoint según el tipo de lista
-        const endpoint = listType === 'my' ? '/myFilms' : '/friendFilms';
+    try { //Vamos a intentar hacer esto, pero si algo sale mal no rompas todo
+        // Aquí vamos a decidir dónde guardar, es decir: Si es mi película la guardas en '/myFilms'. Si es de mi amiga la guardas en 'friendFilms' ESTA SINTAXIS NO LA ENTIENDO:
+                const endpoint = listType === 'my' ? '/myFilms' : '/friendFilms';
+        // SI listType es 'my' el endpoint será '/myFilms'
+        // SI lisType es 'friend' el endpoint será 'friendFilms'
+        /* Esta sintaxis en verdad es una forma corta de escribir un if/else que se llama operador ternario.
+        La forma normal que conozco es defino la función:
+        let endpoint;
+        if (listType === 'my') {
+            endpoint = 'myFilms';
+        } else {
+            endpoint = '/friendFilms'};
+        } con el operador ternario es: const endpoint = listType === 'my' ? 'myFilms' : '/friendFilms'; 
+// Paso a paso:
+// 1. ¿'my' === 'my'? → SÍ (true)
+// 2. Como es SÍ, toma el primer valor: '/myFilms'
+// 3. endpoint = '/myFilms'
+javascriptconst listType = 'friend';
+const endpoint = listType === 'my' ? '/myFilms' : '/friendFilms';
 
+// Paso a paso:
+// 1. ¿'friend' === 'my'? → NO (false)  
+// 2. Como es NO, toma el segundo valor: '/friendFilms'
+// 3. endpoint = '/friendFilms'*/
         const response = await fetch(`${API_URL}${endpoint}`, {
             method: 'POST',
             headers: {
@@ -48,7 +68,7 @@ async function createFilm(filmData, listType) {
             body: JSON.stringify({
                 title: filmData.title,
                 director: filmData.director,
-                filmdescription: filmData.filmdescription,
+                description: filmData.description, 
             })
         });
 
@@ -57,10 +77,16 @@ async function createFilm(filmData, listType) {
         }
         const newFilm = await response.json();
         console.log('CREATE listo: Film created in API: ', newFilm);
+        // Actualizar caché local esto todavía no lo entiendo muy bien la verdad
+        if (listType === 'my') {
+            filmsDatabase.myFilms.push(newFilm);
+        } else {
+            filmsDatabase.friendFilms.push(newFilm);
+        }
         return newFilm;
 
     } catch (error) {
-        console.error('Error create film:', error);
+        console.error('Error CREATE film:', error);
         showNotification('Error al crear la película', 'error');
         throw error;
     }
