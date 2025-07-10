@@ -1,0 +1,580 @@
+/* ===== CINE DE VERANO A DÚO - ESTILOS ===== */
+
+/* Importar la tipografía Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Reset y configuración base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f8f6f3 0%, #f0ebe5 50%, #e8e1d9 100%);
+    min-height: 100vh;
+    color: #5a5a5a;
+    line-height: 1.6;
+}
+
+/* Fondo específico para Mi Colección */
+#my-films {
+    background: 
+        linear-gradient(rgba(248, 246, 243, 0.95), rgba(240, 235, 229, 0.95)),
+        url('./assets/images/cine-verano.png') center/cover no-repeat;
+    background-attachment: local;
+    border-radius: 0 0 20px 20px;
+    position: relative;
+}
+
+#my-films::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(248, 246, 243, 0.2);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Fondo específico para La Colección de Sofía */
+#friend-films {
+    background: 
+        linear-gradient(rgba(240, 248, 255, 0.95), rgba(230, 240, 250, 0.95)),
+        url('./assets/images/premium_photo-1747810783751-e39b0ec65777.avif') center/cover no-repeat;
+    background-attachment: local;
+    border-radius: 0 0 20px 20px;
+    position: relative;
+}
+
+#friend-films::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(240, 248, 255, 0.2);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Asegurar que el contenido esté por encima del fondo */
+.tab-content > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== LAYOUT PRINCIPAL ===== */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* ===== ENCABEZADO ===== */
+
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.main-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #2a2a2a;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #a0a0a0;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+/* ===== SISTEMA DE PESTAÑAS ===== */
+
+.tabs-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+}
+
+.tabs-nav {
+    display: flex;
+    background: #fafafa;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 25px 30px;
+    background: none;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #9a9a9a;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    letter-spacing: -0.3px;
+    text-transform: none;
+}
+
+.tab-button.active {
+    color: #6a6a6a;
+    background: white;
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, #d4b5a0 0%, #c9a896 100%);
+    border-radius: 2px;
+}
+
+.tab-button:hover:not(.active) {
+    color: #7a7a7a;
+    background: #f5f5f5;
+}
+
+/* ===== CONTENIDO DE PESTAÑAS ===== */
+
+.tab-content {
+    display: none;
+    padding: 40px;
+    min-height: 600px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.tab-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #6a6a6a;
+    letter-spacing: -0.5px;
+}
+
+/* ===== CITA DE ALMODÓVAR ===== */
+
+.almodovar-quote {
+    background: rgba(255, 248, 220, 0.4);
+    border-left: 4px solid #d4b5a0;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0 30px;
+    font-style: italic;
+    color: #7a7a7a;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    position: relative;
+}
+
+.almodovar-quote::before {
+    content: '"';
+    font-size: 3rem;
+    color: #d4b5a0;
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    font-family: serif;
+}
+
+.quote-author {
+    text-align: right;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #a0a0a0;
+    font-weight: 500;
+}
+
+/* ===== BOTONES ===== */
+
+.add-film-btn {
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #d4b5a0 0%, #c9a896 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: -0.2px;
+    box-shadow: 0 4px 15px rgba(212, 181, 160, 0.3);
+}
+
+.add-film-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 181, 160, 0.4);
+}
+
+/* ===== GRID DE PELÍCULAS ===== */
+
+.films-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    list-style: none;
+}
+
+/* ===== TARJETAS DE PELÍCULAS ===== */
+
+.film-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #f8f8f8;
+    position: relative;
+    overflow: hidden;
+}
+
+.film-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #d4b5a0 0%, #c9a896 100%);
+}
+
+.film-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.film-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #5a5a5a;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+}
+
+.film-director {
+    font-size: 0.95rem;
+    color: #8a8a8a;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.film-description {
+    font-size: 0.9rem;
+    color: #7a7a7a;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-weight: 400;
+}
+
+.film-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.action-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.1px;
+}
+
+.edit-btn {
+    background: #e8f4f8;
+    color: #5a9fb8;
+    border: 1px solid #d0e8f0;
+}
+
+.edit-btn:hover {
+    background: #d0e8f0;
+    transform: translateY(-1px);
+}
+
+.delete-btn {
+    background: #f8e8e8;
+    color: #b85a5a;
+    border: 1px solid #f0d0d0;
+}
+
+.delete-btn:hover {
+    background: #f0d0d0;
+    transform: translateY(-1px);
+}
+
+/* ===== ESTADO VACÍO ===== */
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #a0a0a0;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-message {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #8a8a8a;
+}
+
+.empty-submessage {
+    font-size: 0.9rem;
+    color: #b0b0b0;
+}
+
+/* ===== MODAL ===== */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    border: 1px solid #f0f0f0;
+    position: relative;
+}
+
+.modal-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #6a6a6a;
+    margin-bottom: 25px;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: #7a7a7a;
+    font-size: 0.9rem;
+    letter-spacing: -0.1px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #f0f0f0;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: #6a6a6a;
+    transition: all 0.3s ease;
+    background: #fafafa;
+    font-weight: 400;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #d4b5a0;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(212, 181, 160, 0.1);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 100px;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: rgba(139, 122, 107, 0.6);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: -0.2px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #d4b5a0 0%, #c9a896 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(212, 181, 160, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 181, 160, 0.4);
+}
+
+.btn-secondary {
+    background: #f5f5f5;
+    color: #8a8a8a;
+    border: 1px solid #e0e0e0;
+}
+
+.btn-secondary:hover {
+    background: #e8e8e8;
+    transform: translateY(-1px);
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    background: none;
+    border: none;
+    color: #c0c0c0;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+    color: #8a8a8a;
+    transform: scale(1.1);
+}
+
+/* ===== RESPONSIVIDAD ===== */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 15px;
+    }
+
+    .main-title {
+        font-size: 2rem;
+    }
+
+    .tab-button {
+        padding: 20px 15px;
+        font-size: 0.9rem;
+    }
+
+    .tab-content {
+        padding: 25px 20px;
+    }
+
+    .films-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .tab-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+
+    .modal-content {
+        padding: 30px 25px;
+        margin: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tabs-nav {
+        flex-direction: column;
+    }
+
+    .films-grid {
+        gap: 15px;
+    }
+
+    .film-card {
+        padding: 20px;
+    }
+}
+
+/* ===== ANIMACIONES ===== */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.film-card {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.film-card:nth-child(1) { animation-delay: 0.1s; }
+.film-card:nth-child(2) { animation-delay: 0.2s; }
+.film-card:nth-child(3) { animation-delay: 0.3s; }
+.film-card:nth-child(4) { animation-delay: 0.4s; }
