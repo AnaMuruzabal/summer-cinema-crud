@@ -9,26 +9,124 @@
 </head>
 
 <body>
-    <!-- Contenedor principal main -->
+    <!-- Contenedor principal que centra todo el contenido -->
     <main class="container">
+        <!-- Encabezado de la aplicación -->
         <header>
-            <!-- Encabezado principal de las dos de nuestra aplicación web -->
-            <h1 class="main-title">CINE DE VERANO A DÚO</h1>
-            <nav class="nav-buttons">
-                <span class="navindicator-currentuser">ESPACIO DE ANA</span>
-                <span class="navindicator-frienduser">ESPACIO DE SOFÍA</span>
+            <h1 class="main-title">CINE A DÚO</h1>
+            
+            <!-- Navegación - Indicadores de espacios (no pestañas) -->
+            <nav class="nav-buttons" aria-label="Indicadores de espacios de cine">
+                <span class="nav-indicator current-user" aria-label="Espacio personal">MI ESPACIO</span>
+                <span class="nav-indicator friend-user" aria-label="Espacio de mi amiga">ESPACIO DE MI AMIGA</span>
             </nav>
         </header>
-        <!-- Contenido principal dividiso en secciones -->
+        
+        <!-- Contenido principal dividido en dos secciones -->
         <section class="main-content">
-            <article class="left-column">
+            <!-- Sección izquierda - Mi Espacio -->
+            <article class="left-column" id="my-space" role="tabpanel" aria-labelledby="my-space-title">
                 <header>
-                    <h2 class="section-title">
-                        PASIÓN, COLORES Y DRAMA
-                    </h2>
+                    <h2 id="my-space-title" class="section-title">PASIÓN, COLORES Y DRAMA: TU SELECCIÓN DE VERANO</h2>
                 </header>
+                
+                <!-- Sección de filtros y sugerencias -->
+                <section class="suggestions" aria-label="Filtros de búsqueda">
+                    <h3>Sugerencias</h3>
+                    <div class="filter-buttons" role="group" aria-label="Filtros de películas">
+                        <button class="filter-btn" type="button" aria-label="Filtrar por año">Año</button>
+                        <button class="filter-btn" type="button" aria-label="Filtrar por género">Género</button>
+                        <button class="filter-btn" type="button" aria-label="Filtrar por idioma">Idioma</button>
+                    </div>
+                </section>
+                
+                <!-- Primera lista de películas personales -->
+                <section aria-labelledby="personal-list-1">
+                    <h3 id="personal-list-1" class="list-title">Lista personal</h3>
+                    <ul class="movie-grid" id="my-movies-list" role="list" aria-label="Lista de películas personales">
+                        <!-- Las películas se cargarán aquí dinámicamente -->
+                    </ul>
+                </section>
+                
+                <!-- Acción principal para compartir -->
+                <footer>
+                    <button class="add-to-shared" type="button" aria-label="Agregar películas seleccionadas a la lista compartida">AGREGAR A LISTA COMPARTIDA</button>
+                </footer>
+            </article>
+            
+            <!-- Sección derecha - Espacio de mi amiga -->
+            <article class="right-column" id="friend-space" role="tabpanel" aria-labelledby="friend-space-title">
+                <header>
+                    <h2 id="friend-space-title" class="section-title">ADRENALINA, EXPLOSIONES Y VERANO SIN PAUSA</h2>
+                </header>
+                
+                <!-- Sección de filtros y sugerencias -->
+                <section class="suggestions" aria-label="Filtros de búsqueda para amiga">
+                    <h3>Sugerencias</h3>
+                    <div class="filter-buttons" role="group" aria-label="Filtros de películas para amiga">
+                        <button class="filter-btn" type="button" aria-label="Filtrar por año">Año</button>
+                        <button class="filter-btn" type="button" aria-label="Filtrar por género">Género</button>
+                        <button class="filter-btn" type="button" aria-label="Filtrar por idioma">Idioma</button>
+                    </div>
+                </section>
+                
+                <!-- Lista de películas de acción -->
+                <section aria-labelledby="friend-movies">
+                    <h3 id="friend-movies" class="list-title">Películas de mi amiga</h3>
+                    <ul class="movie-grid" id="friend-movies-list" role="list" aria-label="Lista de películas de mi amiga">
+                        <!-- Las películas se cargarán aquí dinámicamente -->
+                    </ul>
+                </section>
             </article>
         </section>
     </main>
-</body>
+
+    <!-- Modal para formularios CRUD -->
+    <div id="movieModal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Cerrar modal">&times;</button>
+            <h3 id="modal-title" class="modal-title">Agregar Película</h3>
+            <form id="movieForm">
+                <div class="form-group">
+                    <label for="movieTitle">Título de la película *</label>
+                    <input type="text" id="movieTitle" name="title" required placeholder="Ej: Dolor y Gloria">
+                </div>
+                
+                <div class="form-group">
+                    <label for="movieYear">Año</label>
+                    <input type="number" id="movieYear" name="year" min="1900" max="2030" placeholder="Ej: 2019">
+                </div>
+                
+                <div class="form-group">
+                    <label for="movieGenre">Género</label>
+                    <select id="movieGenre" name="genre">
+                        <option value="">Seleccionar género</option>
+                        <option value="drama">Drama</option>
+                        <option value="comedy">Comedia</option>
+                        <option value="action">Acción</option>
+                        <option value="thriller">Thriller</option>
+                        <option value="romance">Romance</option>
+                        <option value="sci-fi">Ciencia Ficción</option>
+                        <option value="horror">Terror</option>
+                        <option value="documentary">Documental</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="movieDirector">Director</label>
+                    <input type="text" id="movieDirector" name="director" placeholder="Ej: Pedro Almodóvar">
+                </div>
+                
+                <div class="form-group">
+                    <label for="movieDescription">Descripción</label>
+                    <textarea id="movieDescription" name="description" rows="3" placeholder="Breve descripción de la película..."></textarea>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </html>

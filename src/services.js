@@ -37,6 +37,8 @@ let filmsDatabase = {
     myFilms: [],
     friendFilms: []
 };
+let currentEditingFilm = null;
+let currentList = null;
 
 //____________________________CREATE- MÉTODO POST_________________________________________________________________________________
 //Si quiero crear una nueva película (añadirla)
@@ -67,15 +69,15 @@ const endpoint = listType === 'my' ? '/myFilms' : '/friendFilms';
 // 3. endpoint = '/friendFilms'
 //Envío una película al servidor*/
         const response = await fetch(`${API_URL}${endpoint}`, {
-        // le digo que construya la dirección completa donde vpy a enviar la película, es decir al localhost + /myFilms por ejemplo
+            // le digo que construya la dirección completa donde vpy a enviar la película, es decir al localhost + /myFilms por ejemplo
             method: 'POST', //le digo al servidor que quiero CREAR algo nuevo, no leerlo ni borrarlo
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json', //dile al servidor que le voy a enviar datos en formato JSON
             },
             body: JSON.stringify({ //conviérteme los datos de la película en un formato que el servidor entienda
                 title: filmData.title,
                 director: filmData.director,
-                description: filmData.description, 
+                description: filmData.description,
             })
         });
 
@@ -93,37 +95,94 @@ const endpoint = listType === 'my' ? '/myFilms' : '/friendFilms';
             filmsDatabase.friendFilms.push(newFilm); //lo metes en el de mi amiga
         }
         return newFilm;  //y me devuelves el newFilm
-    //Finalizo el try-catch con el catch para atrapar errores
-    } catch (error) { 
+        //Finalizo el try-catch con el catch para atrapar errores
+    } catch (error) {
         console.error('Error CREATE film:', error);
         showNotification('Error al crear la película', 'error');
         return null;
     }
 }
 //___________________________________________READ- MÉTODO GET__________________________________________________________________
-async function readMovie(lisType){
-    try{
+async function readMovie(lisType) {
+    try {
         const endpoint = listType === 'my' ? 'myFilms' : '/friendFilms';
 
         const response = await fetch(`${API_URL}${endpoint}`);
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        const films = await response.json();
+        console.log('READ: Películas obtenidas de API', films);
+
+        // Actualizar caché local
+        if (listType === 'my') {
+            filmsDatabase.myFilms = films;
+        } else {
+            filmsDatabase.friendFilms = films;
+        }
+        return films;
+    }catch (error) {
+        console.error('Error', error);
+        showNotification('Error al cargar las películas', 'error'); //Mismo sistema de errores que antes (create) try-catch
+        //Ahora volvemos a devolver caché local como hemos hecho antes en el Create
+        return lisType === 'my' ? filmsDatabase.myFilms : filmsDatabase.friendFilms; //Arriba he definido estas funciones de la caché
+    }
+}
+//__________________________Volvemos a hacer un método Read pero ahora para leer películas por ID______________ Revisar cómo puede quedar esto con el html y UX...
+async function readFilmById(id, listType) {
+    try{
+        const endpoint = listType === 'my' ? '/myFilms' : '/friendFilms';
+        const response = await fetch(`${API_URL}${endpoint}/${id}`); //todo esto es igual que antes
+
+        if (!response.ok){
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+
+        const movie = await response.json();
+        console.log('READ: Película por ID obtenida de la API fake', film);
+        return film;
+    } catch (error) {
+        console.error('Error READ por ID:', error);
+        //Vamos otra vez con la búsqueda en el caché local, como recomienda claude
+        const films = lisType === 'my' ? filmsDatabase.myFilms : filmsDatabase.friendFilms;
+        return films.find(m => m.id === id);
+    }
+}
+
+//________________________________MÉTODO UPDATE: Actualizar/modificar una película existente_____________________________________
+async function updateFilm(id, filmData, listType) {
+    try {
+        const endpoint = listType === 'my' ? '/myFilms' : '/friendFilms';
+
+        const response = await fetch(`${API_URL}${endpoint}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: id,
+                title: filmData.title,
+                director: filmData.director,
+                description: filmData.description,
+            })
+        });
         
         if (!response.ok) {
             throw new Error(`Error HTTP: ${response.status}`);
         }
-    const films = await response.json();
-    console.log('READ: Películas obtenidas de API', films);
 
-    // Actualizar caché local
-    if (listType === 'my') {
-        filmsDatabase.myFilms = films;
-    } else 
-    }
-    }
+        const updatedFilm = await response.json();
+        console.log('UPDATE: Película actualizada en la API', updatedFilm);
 
-}
+        //Volvemos a hacer lo de la caché, en este caso la actualizamos: le decimos primero con el operador ternario "oye, decide qué lista usar según el tipo" como antes.
+        const films = listType === 'my' ? filmsDatabase.myFilms : filmsDatabase.friendFilms;
+        const filmIndex = films.findIndex(m => m.id === id); //esta es la parte nueva por ser método UPDATE, aquí lo que buscamos es encontrar la posición de la película, le decimos a la caché oye, busca en qué posición está la película que acabo de editar, entonces findIndex() es un método que lo que hace es buscar en el array y devolver una posición, como es films en este caso(documentacion)
+        if (filmIndex =)
+    }
 /*explicación: _async_ es necesario porque JavaScript es asíncrono: esta función va a hacer cosas que tardan un tiempo
                 _function_ es la palabra que usamos para crear una "caja de instrucciones" que podemos usar luego, para no tener que escribir el mismo código una y otra vez (la receta de cocina)
-                _createFilm_ es el nombre que le damos a nuestra función, le ponemos este nombre porque esta función va a crear una película nueva. 
+                _createFilm_ es el nombre que le damos a nuestra función, le ponemos este nombre porque esta función va a crear una película nueva.
                 _(filmdata)_ es un parámetro, es la información que le pasamos a cada función, contiene  todos los datos de la película: título, director, año etc. es como si le decimos a alguien guárdame este número y le das el nombre y el teléfono*/
 /*Imagina que tienes una caja de instrucciones para "crear película"
 async function createFilm(filmData) {
@@ -161,7 +220,7 @@ async function testGetFilms() {
     console.log(films)
 }
 */
- //Perfecto, el método PRINT se refiere a una función que tome los datos obtenidos de la API y los muestre/renderice en el HTML.
+//Perfecto, el método PRINT se refiere a una función que tome los datos obtenidos de la API y los muestre/renderice en el HTML.
 //Función PRINT para mostrar las películas:
 //javascript// PRINT - Mostrar películas en el DOM
 /*function printFilms(films) {
